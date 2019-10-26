@@ -26,7 +26,7 @@ def Customer_info(customer_Details):
     #to check vehicle availability and if available then get details 
     status = VehicleAvailability(customer_Details["vehicleType"])
     
-    if(status is None):"R"Ramvilas@123"amvilas@123"
+    if(status is None):
         EmailHandler.sendStatus(customer_Details,None,None)
     else:
         OTP = generateOTP()
