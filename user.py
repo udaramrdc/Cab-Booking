@@ -32,7 +32,3 @@ def Customer_info(customer_Details):
         EmailHandler.sendStatus(customer_Details,status,OTP)
 
 
-#customer_Details = {"Name":"mangal murmu","pickup_location":"ccfdsdf","Destination":"Jammu","vehicleType":"MINI","mobile_no":"123456789","CUSTOMER_EMAIL":"2017ucs0057@iitjammu.ac.in"}
-#Customer_info(customer_Details)
-
-#status= {"Driver Name":"Ramvilas Babera","Vehicle No.":"12541552","Contact No.":"7051303387","Type":"SUV","Model":"Bolero","Price":"Rs. 500","Email":"2017uee0078@iitjammu.ac.in"}  
