@@ -1,6 +1,7 @@
-import pandas as pd
 import EmailHandler
 import random
+import pymongo
+from pymongo import MongoClient
 
 #to generate Random OTP
 def generateOTP():
@@ -9,24 +10,21 @@ def generateOTP():
 
 #checking database for availability of vehicle
 def VehicleAvailability(vehicleType):
-    vehicle_details = pd.read_excel("Database/CABDATA.xlsx")
-    output_columns=["Name", "NUMBER PLATE","TYPE","EMAIL","CONTACT","MODEL","Status"]
-    for i in vehicle_details.index:
-        if vehicle_details["TYPE"][i] == vehicleType and vehicle_details["Status"][i]==0:
-            vehicle_details["Status"][i] = 1
-            status = {"Driver Name":vehicle_details["Name"][i],"Vehicle No.":str(vehicle_details["NUMBER PLATE"][i]),"Contact No.":str(vehicle_details["CONTACT"][i]),"Type":vehicleType,"Model": vehicle_details["MODEL"][i],"Price":"500" ,"Email" : vehicle_details["EMAIL"][i] }  
-            #update database
-            writer = pd.ExcelWriter("CABDATA.xlsx")
-            vehicle_details.to_excel(writer,"changed", index=False, columns=output_columns)
-            writer.save()
-            return status 
+    client = MongoClient("mongodb+srv://ramvilas:dyLpbazez8QuFxUk@cluster0-chgdf.mongodb.net/test?retryWrites=true&w=majority")
+    db = client.CabData #database name
+    coll = db.CabCollection #collections in database
+    #checking for vehicle in Database
+    vehicle_details = coll.find_one({'Type': vehicleType,'Status':0})
+    if vehicle_details is not None:
+        #update database
+        coll.update_one({'_id':vehicle_details['_id']},{"$set":{'Status':1}})
+        return vehicle_details 
     return None
-            
+
 def Customer_info(customer_Details):
     #to check vehicle availability and if available then get details 
     status = VehicleAvailability(customer_Details["vehicleType"])
-    
-    if(status is None):"R"Ramvilas@123"amvilas@123"
+    if(status is None):
         EmailHandler.sendStatus(customer_Details,None,None)
     else:
         OTP = generateOTP()
@@ -34,7 +32,7 @@ def Customer_info(customer_Details):
         EmailHandler.sendStatus(customer_Details,status,OTP)
 
 
-customer_Details = {"Name":"Raju Jat","pickup_location":"Delhi","Destination":"jaipur","vehicleType":"MICRO","mobile_no":"454464646","CUSTOMER_EMAIL":"2017ucs0057@iitjammu.ac.in"}
-Customer_info(customer_Details)
+#customer_Details = {"Name":"mangal murmu","pickup_location":"ccfdsdf","Destination":"Jammu","vehicleType":"MINI","mobile_no":"123456789","CUSTOMER_EMAIL":"2017ucs0057@iitjammu.ac.in"}
+#Customer_info(customer_Details)
 
 #status= {"Driver Name":"Ramvilas Babera","Vehicle No.":"12541552","Contact No.":"7051303387","Type":"SUV","Model":"Bolero","Price":"Rs. 500","Email":"2017uee0078@iitjammu.ac.in"}  
