@@ -2,6 +2,5 @@ streamlit
 pandas
 xlrd
 openpyxl
-smtplib
 dnspython
 pymongo
