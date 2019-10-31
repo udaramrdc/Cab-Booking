@@ -1,2 +1,2 @@
 SENDER_EMAIL = "rv.babera@gmail.com"
-SENDER_PASS = ""
+SENDER_PASS = "Ramvilas@123"
