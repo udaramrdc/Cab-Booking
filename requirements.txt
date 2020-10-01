@@ -1,6 +1,6 @@
-streamlit
-pandas
-xlrd
-openpyxl
-dnspython
-pymongo
+1.streamlit
+2.pandas
+3.xlrd
+4.openpyxl
+5.dnspython
+6.pymongo
