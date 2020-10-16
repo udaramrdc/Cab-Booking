@@ -1,2 +1,2 @@
-SENDER_EMAIL = "MAIL_ID"
-SENDER_PASS = "PASSWORDS"
+SENDER_EMAIL = "bajarangdal.taxi@gmail.com"
+SENDER_PASS = ""
